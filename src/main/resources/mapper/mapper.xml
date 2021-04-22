@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper">
+    <resultMap id="mapList" type="map">
+        <result column="seq" property="seq"/>
+        <result column="mem_id" property="memId"/>
+        <result column="mem_name" property="memName"/>
+        <result column="board_subject" property="boardSubject"/>
+        <result column="board_content" property="boardContent"/>
+        <result column="reg_date" property="regDate"/>
+        <result column="upt_date" property="uptDate"/>
+        <result column="view_cnt" property="viewCnt"/>
+    </resultMap>
+
+    <select id="list" resultMap="mapList">
+        select
+            seq
+            ,mem_id
+            ,mem_name
+            ,board_subject
+            ,reg_date
+            ,upt_date
+            ,view_cnt
+        from board_study
+        order by seq DESC
+    </select>
+
+    <select id="one" parameterType="int" resultMap="mapList">
+        select
+            seq
+             ,mem_id
+             ,mem_name
+             ,board_subject
+             ,DBMS_LOB.SUBSTR(board_content, 1000, 1) AS board_content
+             ,reg_date
+             ,upt_date
+             ,view_cnt
+        from board_study
+        where seq = #{seqInt}
+    </select>
+    <!--수정 뷰 용도-->
+    <select id="miniOne" parameterType="int" resultMap="mapList">
+        select
+            seq
+             ,mem_id
+             ,mem_name
+             ,board_subject
+             ,DBMS_LOB.SUBSTR(board_content, 1000, 1) AS board_content
+        from board_study
+        where seq = #{seqInt}
+    </select>
+
+    <insert id="write" parameterType="map">
+        INSERT INTO board_study
+            (
+             seq
+            , mem_id
+            , mem_name
+            , board_subject
+            , board_content
+            , reg_date
+            , upt_date
+            , view_cnt
+            )
+        VALUES (
+                (select NVL(max(seq + 1), 0) from board_study),
+                #{id},
+                #{name},
+                #{subject},
+                #{content},
+                SYSDATE,
+                SYSDATE,
+                0
+                )
+    </insert>
+
+    <update id="viewCntInc" parameterType="int">
+        update board_study set
+            view_cnt = view_cnt + 1
+        where seq = #{seqInt}
+    </update>
+
+    <update id="update" parameterType="map">
+        update board_study set
+            board_subject = #{subject}
+            ,board_content = #{content}
+            ,upt_date = sysdate
+        where seq = #{seq}
+    </update>
+
+    <delete id="delete" parameterType="java.util.List">
+        DELETE FROM board_study
+        <where> seq in
+            <foreach collection="list" open="(" close=")" item="item" separator=",">
+                #{item}
+            </foreach>
+        </where>
+
+    </delete>
+</mapper>
+
