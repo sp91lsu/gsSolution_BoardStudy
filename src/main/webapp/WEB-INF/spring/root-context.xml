@@ -4,21 +4,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- 일선솔루션-->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@192.168.0.5:1521:XE"/>
-		<property name="username" value="giantstudy"/>
-		<property name="password" value="gs123"/>
-	</bean>
-
-	<!-- 내 로컬 DB -->
-<!--	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+	<!-- 일선솔루션 내부 IP로 접속-->
+<!--	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">-->
 <!--		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>-->
-<!--		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>-->
-<!--		<property name="username" value="board_Prac"/>-->
-<!--		<property name="password" value="1234"/>-->
+<!--		<property name="url" value="jdbc:oracle:thin:@192.168.0.5:1521:XE"/>-->
+<!--		<property name="username" value="giantstudy"/>-->
+<!--		<property name="password" value="gs123"/>-->
 <!--	</bean>-->
+
+	<!-- 외부에서 접속 -->
+	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+		<property name="username" value="board_Prac"/>
+		<property name="password" value="1234"/>
+	</bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
       <property name="dataSource" ref="dataSource" />

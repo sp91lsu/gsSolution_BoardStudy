@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ public class BoardController {
     //리스트 뷰
     @RequestMapping("list")
     public String list(Model model){
+        System.out.println("서비스 타기전");
         List<Map<String, Object>> list = boardService.list();
         model.addAttribute("list", list);
         return "board/list";
@@ -81,6 +83,16 @@ public class BoardController {
         }
         model.addAttribute("result",result);
         return "board/deleteOk";
+    }
+
+    @RequestMapping("search")
+    public String search(String scope, String schText, Model model){
+        Map<String, String> schInfo = new HashMap<String, String>();
+        schInfo.put("scope",scope);
+        schInfo.put("schText",schText);
+        List<Map<String, Object>> list = boardService.search(schInfo);
+        model.addAttribute("list",list);
+        return "board/list";
     }
 
 }

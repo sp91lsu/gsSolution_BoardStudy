@@ -16,4 +16,7 @@ public interface BoardService {
     int update(Map<String, Object> map);
 
     int delete(List<String> seqList);
+
+
+    List<Map<String, Object>> search(Map<String, String> schInfo);
 }

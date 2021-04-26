@@ -5,10 +5,24 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Board_Study</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <script>
+    $(function (){
+        /*함수바인딩*/
+        $('#schBtn').click(function (){
+            searchGo()
+        });
+    })
+
+    function searchGo(){
+        var scope = $("#searchScope").val()
+        var schText = $("#schText").val()
+        location.href="search?scope="+scope+"&schText="+schText
+    }
+
+    /*새로고침시 조회수 증가를 막기위한 조치:post로 보내기*/
     function post_to_url(path, params, method) {
         method = method || "post";
 
@@ -28,10 +42,18 @@
     }
 
 
+
 </script>
 
 <body>
-
+<input id="home" type="button" value="Home" onclick="location.href='list'"><br>
+<select id="searchScope">
+        <option value="작성자">작성자</option>
+        <option value="제목">제목</option>
+        <option value="제목내용">제목+내용</option>
+</select>
+<input id="schText" type="text">
+<input id="schBtn" type="button" value="검색"><br>
 <input type="button" id="mkBtn" value="글쓰기" onclick="location.href='write'">
 <input type="submit" form="frm" id="delBtn" value="삭제" onclick="location.href='delete'">
 <table border = "1">

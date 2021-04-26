@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="mapper">
+<mapper namespace="com.study.happy.dao.BoardDao">
     <resultMap id="mapList" type="map">
         <result column="seq" property="seq"/>
         <result column="mem_id" property="memId"/>
@@ -24,7 +24,7 @@
         from board_study
         order by seq DESC
     </select>
-
+    <!--리스트 용-->
     <select id="one" parameterType="int" resultMap="mapList">
         select
             seq
@@ -38,6 +38,33 @@
         from board_study
         where seq = #{seqInt}
     </select>
+
+    <!--검색 후 리스트-->
+    <select id="search" parameterType="map" resultMap="mapList">
+        select
+            seq
+             ,mem_id
+             ,mem_name
+             ,board_subject
+             ,DBMS_LOB.SUBSTR(board_content, 1000, 1) AS board_content
+             ,reg_date
+             ,upt_date
+             ,view_cnt
+        from board_study
+        where
+            <choose>
+                <when test="scope.equals('작성자')">
+                    mem_name like '%'||#{schText}||'%'
+                </when>
+                <when test="scope.equals('제목')">
+                    board_subject like '%'||#{schText}||'%'
+                </when>
+                <when test="scope.equals('제목내용')">
+                    board_subject||board_content like '%'||#{schText}||'%'
+                </when>
+            </choose>
+    </select>
+
     <!--수정 뷰 용도-->
     <select id="miniOne" parameterType="int" resultMap="mapList">
         select

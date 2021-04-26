@@ -16,6 +16,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Map<String, Object>> list() {
+        System.out.println("서비스, DAO 전");
         return boardDao.list();
     }
 
@@ -48,5 +49,11 @@ public class BoardServiceImpl implements BoardService {
     public int delete(List<String> seqList) {
         return boardDao.delete(seqList);
     }
+
+    @Override
+    public List<Map<String, Object>> search(Map<String, String> schInfo) {
+        return boardDao.search(schInfo);
+    }
+
 
 }
