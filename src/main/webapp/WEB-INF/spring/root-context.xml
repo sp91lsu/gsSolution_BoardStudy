@@ -15,9 +15,9 @@
 	<!-- 외부에서 접속 -->
 	<bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
-		<property name="username" value="board_Prac"/>
-		<property name="password" value="1234"/>
+		<property name="url" value="jdbc:oracle:thin:@112.171.120.178:1521:XE"/>
+		<property name="username" value="giantstudy"/>
+		<property name="password" value="gs123"/>
 	</bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">

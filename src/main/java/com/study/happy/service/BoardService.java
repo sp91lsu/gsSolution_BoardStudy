@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BoardService {
-    List<Map<String, Object>> list();
+    List<Map<String, Object>> list(Map<String, Object> map);
     int write(Map<String, Object> map);
 
     Map<String, Object> one(int seqInt);
@@ -19,4 +19,6 @@ public interface BoardService {
 
 
     List<Map<String, Object>> search(Map<String, String> schInfo);
+
+    List<Map<String, Object>> periodSch(Map<String, String> schInfo);
 }

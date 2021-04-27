@@ -19,8 +19,8 @@ public class  BoardDaoImpl implements BoardDao {
     }
 
     @Override
-    public List<Map<String, Object>> list() {
-        return mapper().list();
+    public List<Map<String, Object>> list(Map<String, Object> map) {
+        return mapper().list(map);
     }
 
     @Override
@@ -56,6 +56,11 @@ public class  BoardDaoImpl implements BoardDao {
     @Override
     public List<Map<String, Object>> search(Map<String, String> schInfo) {
         return mapper().search(schInfo);
+    }
+
+    @Override
+    public List<Map<String, Object>> periodSch(Map<String, String> schInfo) {
+        return mapper().periodSch(schInfo);
     }
 
 }

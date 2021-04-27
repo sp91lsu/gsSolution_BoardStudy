@@ -12,19 +12,46 @@
         <result column="view_cnt" property="viewCnt"/>
     </resultMap>
 
-    <select id="list" resultMap="mapList">
-        select
-            seq
-            ,mem_id
+    <sql id="columns">
+        seq
+        ,mem_id
             ,mem_name
             ,board_subject
             ,reg_date
             ,upt_date
             ,view_cnt
+    </sql>
+
+    <!--메인페이지 리스트-->
+    <select id="list" parameterType="map" resultMap="mapList">
+        select
+            row_number() over(order by seq desc) rnum,
+            <include refid="columns"/>
         from board_study
-        order by seq DESC
+        where 1=1
+            <if test="schText != null and schText != ''">
+                <choose>
+                    <when test="scope.equals('작성자')">
+                        and mem_name like '%${schText}%'
+                    </when>
+                    <when test="scope.equals('제목')">
+                        and board_subject like '%'||#{schText}||'%'
+                    </when>
+                    <when test="scope.equals('제목내용')">
+                        and board_subject||board_content like '%'||#{schText}||'%'
+                    </when>
+                </choose>
+            </if>
+            <if test="date1 != null and date2 != null and date1 != '' and date2 != ''">
+                and <![CDATA[
+                reg_date >= TO_DATE(#{date1},'YYYY-MM-DD')
+                and
+                reg_date <= TO_DATE(#{date2},'YYYY-MM-DD')
+                ]]>
+            </if>
     </select>
-    <!--리스트 용-->
+
+    <!--글정보 뷰-->
     <select id="one" parameterType="int" resultMap="mapList">
         select
             seq
@@ -37,32 +64,6 @@
              ,view_cnt
         from board_study
         where seq = #{seqInt}
-    </select>
-
-    <!--검색 후 리스트-->
-    <select id="search" parameterType="map" resultMap="mapList">
-        select
-            seq
-             ,mem_id
-             ,mem_name
-             ,board_subject
-             ,DBMS_LOB.SUBSTR(board_content, 1000, 1) AS board_content
-             ,reg_date
-             ,upt_date
-             ,view_cnt
-        from board_study
-        where
-            <choose>
-                <when test="scope.equals('작성자')">
-                    mem_name like '%'||#{schText}||'%'
-                </when>
-                <when test="scope.equals('제목')">
-                    board_subject like '%'||#{schText}||'%'
-                </when>
-                <when test="scope.equals('제목내용')">
-                    board_subject||board_content like '%'||#{schText}||'%'
-                </when>
-            </choose>
     </select>
 
     <!--수정 뷰 용도-->
@@ -100,7 +101,7 @@
                 0
                 )
     </insert>
-
+    <!--조회수증가-->
     <update id="viewCntInc" parameterType="int">
         update board_study set
             view_cnt = view_cnt + 1

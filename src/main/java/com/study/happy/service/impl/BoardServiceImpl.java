@@ -15,9 +15,9 @@ public class BoardServiceImpl implements BoardService {
     private BoardDao boardDao;
 
     @Override
-    public List<Map<String, Object>> list() {
+    public List<Map<String, Object>> list(Map<String, Object> map) {
         System.out.println("서비스, DAO 전");
-        return boardDao.list();
+        return boardDao.list(map);
     }
 
     @Override
@@ -53,6 +53,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<Map<String, Object>> search(Map<String, String> schInfo) {
         return boardDao.search(schInfo);
+    }
+
+    @Override
+    public List<Map<String, Object>> periodSch(Map<String, String> schInfo) {
+        return boardDao.periodSch(schInfo);
     }
 
 
