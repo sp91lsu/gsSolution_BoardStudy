@@ -10,6 +10,7 @@
         <result column="reg_date" property="regDate"/>
         <result column="upt_date" property="uptDate"/>
         <result column="view_cnt" property="viewCnt"/>
+        <result column="tot_rows" property="totRows"/>
     </resultMap>
 
     <sql id="columns">
@@ -22,33 +23,49 @@
             ,view_cnt
     </sql>
 
-    <!--메인페이지 리스트-->
-    <select id="list" parameterType="map" resultMap="mapList">
+    <sql id="search">
         select
-            row_number() over(order by seq desc) rnum,
-            <include refid="columns"/>
+        row_number() over(order by seq desc) rnum,
+        <include refid="columns"/>
         from board_study
         where 1=1
-            <if test="schText != null and schText != ''">
-                <choose>
-                    <when test="scope.equals('작성자')">
-                        and mem_name like '%${schText}%'
-                    </when>
-                    <when test="scope.equals('제목')">
-                        and board_subject like '%'||#{schText}||'%'
-                    </when>
-                    <when test="scope.equals('제목내용')">
-                        and board_subject||board_content like '%'||#{schText}||'%'
-                    </when>
-                </choose>
-            </if>
-            <if test="date1 != null and date2 != null and date1 != '' and date2 != ''">
-                and <![CDATA[
+        <if test="schText != null and schText != ''">
+            <choose>
+                <when test="scope.equals('작성자')">
+                    and mem_name like '%${schText}%'
+                </when>
+                <when test="scope.equals('제목')">
+                    and board_subject like '%'||#{schText}||'%'
+                </when>
+                <when test="scope.equals('제목내용')">
+                    and board_subject||board_content like '%'||#{schText}||'%'
+                </when>
+            </choose>
+        </if>
+        <if test="date1 != null and date2 != null and date1 != '' and date2 != ''">
+            and <![CDATA[
                 reg_date >= TO_DATE(#{date1},'YYYY-MM-DD')
                 and
                 reg_date <= TO_DATE(#{date2},'YYYY-MM-DD')
                 ]]>
-            </if>
+        </if>
+    </sql>
+
+    <!--메인페이지 리스트-->
+    <select id="list" parameterType="map" resultMap="mapList">
+        with SCH as(
+            <include refid="search"/>
+        )
+        select SCH.*, (select count(SCH.rnum) from SCH) tot_rows
+        from SCH
+        <choose>
+            <when test="fromRow==null">
+                where SCH.rnum between 1 and 10
+            </when>
+            <otherwise>
+                where SCH.rnum between ${fromRow} and (${fromRow} + ${rowsPerPage} - 1)
+            </otherwise>
+        </choose>
     </select>
 
     <!--글정보 뷰-->

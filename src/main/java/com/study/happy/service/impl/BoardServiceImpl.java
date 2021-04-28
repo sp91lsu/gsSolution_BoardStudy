@@ -10,7 +10,6 @@ import java.util.Map;
 
 @Service("service")
 public class BoardServiceImpl implements BoardService {
-
     @Resource(name = "dao")
     private BoardDao boardDao;
 

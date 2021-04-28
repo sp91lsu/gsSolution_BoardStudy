@@ -23,9 +23,22 @@ public class BoardController {
     public String list(@RequestParam Map<String, Object> map, Model model) {
         System.out.println("서비스 타기전");
         System.out.println(map);
+        if(!map.containsKey("curPage")){
+            map.put("fromRow","1");
+            map.put("curPage","1");
+        }
+        if(!map.containsKey("rowsPerPage")){
+            map.put("rowsPerPage",pagination.getInstance().rowsPerPage+"");
+        }else {
+            pagination.getInstance().rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
+        }
+
+        map.put("blockSize",pagination.getInstance().blockSize);
         List<Map<String, Object>> list = boardService.list(map);
+        System.out.println(map);
+        System.out.println(list.get(0).get("totRows"));
         model.addAttribute("list", list);
-        model.addAttribute("schInfo", map);
+        model.addAttribute("info", map);
         return "board/list";
     }
 
@@ -92,4 +105,5 @@ public class BoardController {
         model.addAttribute("result", result);
         return "board/deleteOk";
     }
+
 }
