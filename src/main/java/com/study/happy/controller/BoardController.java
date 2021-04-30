@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +27,12 @@ public class BoardController {
             map.put("curPage","1");
         }
         if(!map.containsKey("rowsPerPage")){
-            map.put("rowsPerPage",pagination.getInstance().rowsPerPage+"");
+            map.put("rowsPerPage", pagingSetting.getInstance().rowsPerPage+"");
         }else {
-            pagination.getInstance().rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
+            pagingSetting.getInstance().rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
         }
 
-        map.put("blockSize",pagination.getInstance().blockSize);
+        map.put("blockSize", pagingSetting.getInstance().blockSize);
         List<Map<String, Object>> list = boardService.list(map);
         System.out.println(map);
         System.out.println(list.get(0).get("totRows"));

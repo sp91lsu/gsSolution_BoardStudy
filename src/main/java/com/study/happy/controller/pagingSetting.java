@@ -1,13 +1,13 @@
 package com.study.happy.controller;
 
-public class pagination {
-    private static pagination instance;
+public class pagingSetting {
+    private static pagingSetting instance;
 
-    private pagination(){}
+    private pagingSetting(){}
 
-    public static synchronized pagination getInstance(){
+    public static synchronized pagingSetting getInstance(){
         if(instance == null){
-            instance = new pagination();
+            instance = new pagingSetting();
         }
         return instance;
     }
