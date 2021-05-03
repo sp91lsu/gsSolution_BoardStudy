@@ -30,24 +30,10 @@
         from board_study
         where 1=1
         <if test="schText != null and schText != ''">
-            <choose>
-                <when test="scope.equals('작성자')">
-                    and mem_name like '%${schText}%'
-                </when>
-                <when test="scope.equals('제목')">
-                    and board_subject like '%'||#{schText}||'%'
-                </when>
-                <when test="scope.equals('제목내용')">
-                    and board_subject||board_content like '%'||#{schText}||'%'
-                </when>
-            </choose>
+            and ${scope} like '%'||#{schText}||'%'
         </if>
         <if test="date1 != null and date2 != null and date1 != '' and date2 != ''">
-            and <![CDATA[
-                reg_date >= TO_DATE(#{date1},'YYYY-MM-DD')
-                and
-                reg_date <= TO_DATE(#{date2},'YYYY-MM-DD')
-                ]]>
+            and TO_CHAR(reg_date,'YYYY-MM-DD') between #{date1} and #{date2}
         </if>
     </sql>
 

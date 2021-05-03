@@ -10,9 +10,9 @@
 <%
     /*변수받아오기*/
     Map<String, Object> map = (Map<String, Object>) request.getAttribute("info");
-    System.out.println("받아온 데이터: "+map);
+    System.out.println("listAjax.jsp: "+map);
     int rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
-    int blockSize = (Integer)map.get("blockSize");
+    int blockSize = Integer.parseInt((String)map.get("blockSize"));
     int curPage = Integer.parseInt((String)map.get("curPage"));
     List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("list");
     int totRows = ((BigDecimal)list.get(0).get("totRows")).intValue();
@@ -21,6 +21,7 @@
     int totPage = paging.getTotPage();
     int start_inBlock = paging.getStart_inBlock();
     int end_inBlock = paging.getEnd_inBlock();
+    System.out.println("end_inBlock: "+ end_inBlock);
 %>
 <div id="ajaxSection">
     <div id="listSection">
@@ -31,7 +32,7 @@
             -용도: 검색버튼을 눌러서 '새로운 검색 정보'로 리스트를 받아오는게 아니라
             페이지 번호를 누를때 '기존 검색 정보'와 '페이지 번호'를 서버로 보내고 해당 리스트를 받아온다.
         --%>
-        <form name="schForm2" action="list">
+        <form name="schForm2" id="schForm2">
             <input name="scope" type="hidden" value="${info.scope}">
             <input name="schText" type="hidden" value="${info.schText}">
             <input name="date1" type="hidden" value="${info.date1}">
@@ -50,20 +51,22 @@
         <input id="end_page" type="hidden" value="<%= end_inBlock %>">
 
         <%--검색 및 페이지 정보--%>
-        <table border = "1" style="border-collapse: collapse">
-            <tr>
-                <th>총 글 개수</th>
-                <th>검색타입</th>
-                <th>검색어</th>
-                <th>기간</th>
-            </tr>
-            <tr>
-                <td><span><%= totRows %></span>개</td>
-                <td><span>${info.scope}</span></td>
-                <td><span>${info.schText}</span></td>
-                <td><span>${info.date1}</span>&nbsp;~&nbsp;<span>${info.date2}</span></td>
-            </tr>
-        </table>
+            <table border = "1" style="border-collapse: collapse">
+                <tr>
+                    <th>검색타입</th>
+                    <th>검색어</th>
+                    <th>기간</th>
+                    <th>총 글 개수</th>
+                    <th>총 페이지 수</th>
+                </tr>
+                <tr>
+                    <td><span>${info.scope}</span></td>
+                    <td><span>${info.schText}</span></td>
+                    <td><span>${info.date1}</span>&nbsp;~&nbsp;<span>${info.date2}</span></td>
+                    <td><span><%= totRows %></span>개</td>
+                    <td><span><%= totPage %></span>개</td>
+                </tr>
+            </table>
         <br>
         <%--글등록/삭제/행수 섹션--%>
         <div>

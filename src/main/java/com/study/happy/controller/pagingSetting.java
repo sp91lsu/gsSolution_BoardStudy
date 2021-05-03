@@ -11,7 +11,7 @@ public class pagingSetting {
         }
         return instance;
     }
-    /*Field*/
+    /*Field 세팅값*/
     int blockSize = 5;
     int rowsPerPage = 10;
 

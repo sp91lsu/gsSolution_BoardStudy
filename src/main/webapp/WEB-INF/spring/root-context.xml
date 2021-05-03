@@ -27,5 +27,16 @@
 
 	 <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		 <constructor-arg index="0" ref="sqlSession"/>
-	 </bean> 
+	 </bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--  파일업로드 용량 (10MB)-->
+		<property name="maxUploadSize" value="10485760"/>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!--  파일업로드 디렉토리 설정 -->
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="D:\DevLSW\study\GSsolutionWS\goSpring\src\main\webapp\WEB-INF\views\file\uploadPath\"/>
+	</bean>
 </beans>

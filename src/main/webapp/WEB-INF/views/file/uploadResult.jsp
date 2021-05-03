@@ -5,9 +5,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>UploadResult</title>
 </head>
 <body>
-
+<pre>
+<c:forEach var="rMap" items="${resMap}">
+${rMap.key}
+    <c:forEach var="fileInfoMap" items="${rMap.value}">
+    ${fileInfoMap.key} : ${fileInfoMap.value}
+    </c:forEach>
+</c:forEach>
+</pre>
 </body>
 </html>

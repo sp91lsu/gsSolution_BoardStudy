@@ -51,11 +51,11 @@
             <form name="schForm" action="list">
                 <%--검색--%>
                 <select name="scope">
-                    <option value="작성자"
+                    <option value="mem_name"
                             <c:if test="${info.scope=='작성자'}">selected="selected"</c:if>>작성자</option>
-                    <option value="제목"
+                    <option value="board_subject"
                             <c:if test="${info.scope=='제목'}">selected="selected"</c:if>>제목</option>
-                    <option value="제목내용"
+                    <option value="board_subject||board_content"
                             <c:if test="${info.scope=='제목내용'}">selected="selected"</c:if>>제목+내용</option>
                 </select>
                 <input name="schText" type="text" value="${info.schText}"><br>

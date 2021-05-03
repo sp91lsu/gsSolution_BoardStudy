@@ -23,9 +23,10 @@ public class Paging {
         this.blockSize = blockSize;
         this.curPage = curPage;
         this.totRows = totRows;
-        this.totPage = (int)Math.ceil( totRows / (rowsPerPage*1.0) );
-        this.start_inBlock = (int)( (curPage-1) / blockSize*1.0 )  * blockSize  + 1;
-        this.end_inBlock = end_inBlock >= totPage ? end_inBlock = totPage : start_inBlock + blockSize - 1;
+        totPage = (int)Math.ceil( totRows / (rowsPerPage*1.0) );
+        start_inBlock = (int)( (curPage-1) / blockSize*1.0 )  * blockSize  + 1;
+        end_inBlock = start_inBlock + blockSize - 1;
+        if(end_inBlock >= totPage) end_inBlock = totPage;
     }
 
     public int getRowsPerPage() {

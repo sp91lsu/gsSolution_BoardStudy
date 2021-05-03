@@ -9,10 +9,6 @@ $(function (){
     fetchFromJSP()
     jspSetting()
     pageBlockSetting()
-    $("#rowsSelect").change(function (){
-        console.log("select 클릭")
-        $("input[name='rowsPerPage']").val($("#rowsSelect").val())
-    })
 })
 
 function fetchFromJSP(){
@@ -26,6 +22,10 @@ function fetchFromJSP(){
 function jspSetting(){
     var rowsPerPage = $("#rowsPerPage").val()
     $("#rowsSelect").val(rowsPerPage).prop('selected',true)
+    $("#rowsSelect").change(function (){
+        console.log("select 클릭")
+        $("input[name='rowsPerPage']").val($("#rowsSelect").val())
+    })
 }
 function loadPage(pageToMove){
     $("#curPage").val(pageToMove)
@@ -60,10 +60,14 @@ function prevBlock(){
     loadPage(start_page-blockSize)
 }
 function nextBlock(){
+    console.log("next 눌렀다")
+    console.log(start_page+blockSize)
     loadPage(start_page+blockSize)
 }
 
 function test(){
     console.log("test!")
 }
+
+var str = "";
 

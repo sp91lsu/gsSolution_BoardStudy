@@ -21,9 +21,9 @@
 <%
     /*변수받아오기*/
     Map<String, Object> map = (Map<String, Object>) request.getAttribute("info");
-    System.out.println("받아온 데이터: "+map);
+    System.out.println("main.jsp: "+map);
     int rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
-    int blockSize = (Integer)map.get("blockSize");
+    int blockSize = Integer.parseInt((String)map.get("blockSize"));
     int curPage = Integer.parseInt((String)map.get("curPage"));
     List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("list");
     int totRows = ((BigDecimal)list.get(0).get("totRows")).intValue();
@@ -46,20 +46,23 @@
 <div class="outer">
     <div id="longishSection">
         <div id="searchSection">
-            <input id="home" type="button" value="Home" onclick="location.href='list'"><br>
+            <input id="home" type="button" value="Home" onclick="location.href='main'"><br>
 
             <%--검색 폼--%>
             <form id="schForm" name="schForm" action="list">
                 <%--검색--%>
                 <select name="scope">
-                    <option value="작성자">작성자</option>
-                    <option value="제목">제목</option>
-                    <option value="제목내용">제목+내용</option>
+                    <option value="mem_name">작성자</option>
+                    <option value="board_subject">제목</option>
+                    <option value="board_subject||board_content">제목+내용</option>
                 </select>
                 <input name="schText" type="text"><br>
                 <%--달력--%>
-                <input type="text" name="date1" id="date1" size="12" placeholder="First Date (Click)" value="${info.date1}"/>&nbsp; ~&nbsp;
-                <input type="text" name="date2" id="date2" size="12" placeholder="Last Date (Click)" value="${info.date2}"/>
+                <input name="date1" id="date1" type="text" size="12" placeholder="First Date (Click)" value="${info.date1}"/>&nbsp; ~&nbsp;
+                <input name="date2" id="date2" type="text" size="12" placeholder="Last Date (Click)" value="${info.date2}"/>
+                <%--행수--%>
+                <input name="rowsPerPage" type="hidden" value="<%= rowsPerPage %>">
+
                 <input id="schBtn" type="button" value="검색"><br>
             </form>
         </div>
@@ -73,7 +76,7 @@
                     -용도: 검색버튼을 눌러서 '새로운 검색 정보'로 리스트를 받아오는게 아니라
                     페이지 번호를 누를때 '기존 검색 정보'와 '페이지 번호'를 서버로 보내고 해당 리스트를 받아온다.
                 --%>
-                <form name="schForm2" action="list">
+                <form name="schForm2" id="schForm2">
                     <input name="scope" type="hidden" value="${info.scope}">
                     <input name="schText" type="hidden" value="${info.schText}">
                     <input name="date1" type="hidden" value="${info.date1}">

@@ -18,13 +18,15 @@ public class AjaxController {
 
     @RequestMapping("main")
     public String main(@RequestParam Map<String, Object> map, Model model) {
-        System.out.println("서비스 타기전");
+        System.out.println("Controller_main"+map);
+        System.out.println("Controller_main list서비스 타기전");
         map.put("fromRow","1");
         map.put("rowsPerPage", pagingSetting.getInstance().rowsPerPage+"");
         List<Map<String, Object>> list = boardService.list(map);
+        System.out.println("Controller_main list서비스 후");
         map.put("curPage","1");
-        map.put("blockSize", pagingSetting.getInstance().blockSize);
-        System.out.println(map);
+        map.put("blockSize", pagingSetting.getInstance().blockSize+"");
+        System.out.println("Controller_main jsp로 보내기전"+map);
         model.addAttribute("list", list);
         model.addAttribute("info", map);
         return "boardAjax/main";
@@ -33,10 +35,21 @@ public class AjaxController {
     //리스트 뷰
     @RequestMapping("list.ajax")
     public String list(@RequestParam Map<String, Object> map, Model model) {
-        System.out.println("서비스 타기전");
-        pagingSetting.getInstance().rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
+        System.out.println("Controller_list.ajax" + map);
+        System.out.println("Controller_list.ajax list서비스 타기전");
+        if(!map.containsKey("curPage")){
+            map.put("fromRow","1");
+            map.put("curPage","1");
+        }
+        if(!map.containsKey("rowsPerPage")){
+            map.put("rowsPerPage", pagingSetting.getInstance().rowsPerPage+"");
+        }else {
+            pagingSetting.getInstance().rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
+        }
+        map.put("blockSize", pagingSetting.getInstance().blockSize+"");
         List<Map<String, Object>> list = boardService.list(map);
-        System.out.println(map);
+        System.out.println("Controller_list.ajax list서비스 후");
+        System.out.println("Controller_list.ajax jsp로 보내기전"+map);
         model.addAttribute("list", list);
         model.addAttribute("info", map);
         return "boardAjax/listAjax";
