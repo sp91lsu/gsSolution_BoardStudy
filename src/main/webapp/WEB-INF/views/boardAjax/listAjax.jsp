@@ -1,7 +1,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.math.BigDecimal" %>
-<%@ page import="com.study.happy.Paging" %>
+<%@ page import="com.study.happy.utilClass.Paging" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -23,13 +23,15 @@
     int end_inBlock = paging.getEnd_inBlock();
     System.out.println("end_inBlock: "+ end_inBlock);
 %>
+
 <div id="ajaxSection">
-    <div id="listSection">
+    <div id="hiddenInfo-Section">
         <%--
             <검색 폼 데이터 임시저장하는 곳>
             -검색 정보를 컨트롤러로 보내면 다시 컨트롤러에서
             list.jsp로 검색정보를 리턴하고 이곳에 저장한다.
-            -용도: 검색버튼을 눌러서 '새로운 검색 정보'로 리스트를 받아오는게 아니라
+            -용도: *검색버튼을 누르기전 검색어나 날짜를 아무리 고쳐도 페이지 버튼을 누를 때 기존 검색 정보 관련 페이지로 이동한다.
+             *검색버튼을 눌러서 '새로운 검색 정보'로 리스트를 받아오는게 아니라
             페이지 번호를 누를때 '기존 검색 정보'와 '페이지 번호'를 서버로 보내고 해당 리스트를 받아온다.
         --%>
         <form name="schForm2" id="schForm2">
@@ -37,9 +39,9 @@
             <input name="schText" type="hidden" value="${info.schText}">
             <input name="date1" type="hidden" value="${info.date1}">
             <input name="date2" type="hidden" value="${info.date2}">
-            <input name="curPage" id="curPage" type="hidden" value="${info.curPage}">
-            <input name="fromRow" id="fromRow" type="hidden" value="${info.fromRow}">
-            <input name="rowsPerPage" type="hidden" value="<%= rowsPerPage %>">
+            <input name="curPage" id="curPage" type="hidden" value="${info.curPage}" page>
+            <input name="fromRow" id="fromRow" type="hidden" value="${info.fromRow}" page>
+            <input name="rowsPerPage" type="hidden" value="<%= rowsPerPage %>" page>
         </form>
 
         <%--전송할 필요없는 페이지 정보--%>
@@ -49,25 +51,30 @@
         <input id="totPage" type="hidden" value="<%= totPage %>">
         <input id="start_page" type="hidden" value="<%= start_inBlock %>">
         <input id="end_page" type="hidden" value="<%= end_inBlock %>">
-
+    </div>
+    <div id="searchInfo-Section">
         <%--검색 및 페이지 정보--%>
-            <table border = "1" style="border-collapse: collapse">
-                <tr>
-                    <th>검색타입</th>
-                    <th>검색어</th>
-                    <th>기간</th>
-                    <th>총 글 개수</th>
-                    <th>총 페이지 수</th>
-                </tr>
-                <tr>
-                    <td><span>${info.scope}</span></td>
-                    <td><span>${info.schText}</span></td>
-                    <td><span>${info.date1}</span>&nbsp;~&nbsp;<span>${info.date2}</span></td>
-                    <td><span><%= totRows %></span>개</td>
-                    <td><span><%= totPage %></span>개</td>
-                </tr>
-            </table>
+        <table border = "1" style="border-collapse: collapse; display: inline-block">
+            <tr>
+                <th>검색타입</th>
+                <th>검색어</th>
+                <th>기간</th>
+                <th>총 글 개수</th>
+                <th>총 페이지 수</th>
+            </tr>
+            <tr>
+                <td><span>${info.scope}</span></td>
+                <td><span>${info.schText}</span></td>
+                <td><span>${info.date1}</span>&nbsp;~&nbsp;<span>${info.date2}</span></td>
+                <td><span><%= totRows %></span>개</td>
+                <td><span><%= totPage %></span>개</td>
+            </tr>
+        </table>
+        <%--엑셀 다운로드 버튼--%>
+        <input id="excelBtn" type="button" value="엑셀 다운로드" style="display:inline-block;">
         <br>
+    </div>
+    <div id="listSection">
         <%--글등록/삭제/행수 섹션--%>
         <div>
             <input type="button" id="mkBtn" value="글쓰기" onclick="location.href='write'">

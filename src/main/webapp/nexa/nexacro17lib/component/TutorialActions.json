@@ -1,0 +1,31 @@
+﻿{
+	"name": "TutorialActions",
+	"moduletype": "component",
+	"version": "1.0",
+	"minnexacroversion": "",
+	"description": "Tutorial Sample Action",
+	"license": "",
+	"objInfo": [	
+    "TutorialActions/_metainfo_/CommonInfo.info",
+    "TutorialActions/_metainfo_/TutorialAlertAction.info",
+    "TutorialActions/_metainfo_/TutorialQueryAction.info"
+	],
+	"scripts": [
+    "TutorialActions/TutorialAlertAction.js",
+    "TutorialActions/TutorialQueryAction.js"
+	],
+	"designscripts": [
+
+	],
+	"help": "",	
+	"xcss": "",
+	"images": "",	
+	"licensefiles": "",
+	"icons": "",
+	"userfolder": [
+    "TutorialActions/test_data"
+	],
+	"contentseditor": [
+
+	]
+}

@@ -1,4 +1,4 @@
-package com.study.happy;
+package com.study.happy.utilClass;
 
 /*
 << < 1 2 3 4 5 > >>

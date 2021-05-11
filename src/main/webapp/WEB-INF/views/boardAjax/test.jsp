@@ -5,9 +5,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Test</title>
 </head>
 <body>
-
+Test
 </body>
 </html>

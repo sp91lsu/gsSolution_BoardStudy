@@ -59,5 +59,10 @@ public class BoardServiceImpl implements BoardService {
         return boardDao.periodSch(schInfo);
     }
 
+    @Override
+    public List<Map<String, Object>> listNoPage(Map<String, Object> map)  {
+        return boardDao.listNoPage(map);
+    }
+
 
 }

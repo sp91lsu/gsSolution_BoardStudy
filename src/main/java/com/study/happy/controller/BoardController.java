@@ -1,6 +1,7 @@
 package com.study.happy.controller;
 
 import com.study.happy.service.BoardService;
+import com.study.happy.utilClass.PagingSetting;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +28,13 @@ public class BoardController {
             map.put("curPage","1");
         }
         if(!map.containsKey("rowsPerPage")){
-            map.put("rowsPerPage", pagingSetting.getInstance().rowsPerPage+"");
+            map.put("rowsPerPage", PagingSetting.getInstance().getRowsPerPage()+"");
         }else {
-            pagingSetting.getInstance().rowsPerPage = Integer.parseInt((String)map.get("rowsPerPage"));
+            int rowsPerPage = Integer.parseInt((String) map.get("rowsPerPage"));
+            PagingSetting.getInstance().setRowsPerPage(rowsPerPage);
         }
 
-        map.put("blockSize", pagingSetting.getInstance().blockSize);
+        map.put("blockSize", PagingSetting.getInstance().getBlockSize());
         List<Map<String, Object>> list = boardService.list(map);
         System.out.println(map);
         System.out.println(list.get(0).get("totRows"));

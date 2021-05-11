@@ -21,4 +21,6 @@ public interface BoardService {
     List<Map<String, Object>> search(Map<String, String> schInfo);
 
     List<Map<String, Object>> periodSch(Map<String, String> schInfo);
+
+    List<Map<String, Object>> listNoPage(Map<String, Object> map);
 }

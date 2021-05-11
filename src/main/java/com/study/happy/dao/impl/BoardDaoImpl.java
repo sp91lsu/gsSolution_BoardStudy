@@ -63,4 +63,9 @@ public class  BoardDaoImpl implements BoardDao {
         return mapper().periodSch(schInfo);
     }
 
+    @Override
+    public List<Map<String, Object>> listNoPage(Map<String, Object> map) {
+        return mapper().listNoPage(map);
+    }
+
 }

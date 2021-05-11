@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root xmlns="http://www.nexacroplatform.com/platform/dataset" ver="5000" >
+	<Parameters>
+		<Parameter id="ErrorCode" type="int">0</Parameter>
+		<Parameter id="ErrorMsg" type="string">SUCC</Parameter>
+	</Parameters>
+	<Dataset id="ds_viewdataset">
+		<ColumnInfo>
+			<Column id="company" type="string" size="255"/>
+			<Column id="department" type="string" size="255"/>
+			<Column id="emp_name" type="string" size="255"/>
+			<Column id="position" type="string" size="255"/>
+			<Column id="cellphone" type="string" size="255"/>
+			<Column id="address" type="string" size="255"/>
+		</ColumnInfo>
+		<Rows>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Development</Col>
+				<Col id="emp_name">Logan</Col>
+				<Col id="position">Director</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Development</Col>
+				<Col id="emp_name">Amelia</Col>
+				<Col id="position">Manager</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Abroad</Col>
+				<Col id="emp_name">Emma</Col>
+				<Col id="position">Manager</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Development</Col>
+				<Col id="emp_name">William</Col>
+				<Col id="position">Director</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Development</Col>
+				<Col id="emp_name">James</Col>
+				<Col id="position">Manager</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Development</Col>
+				<Col id="emp_name">Olivia</Col>
+				<Col id="position">Manager</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Development</Col>
+				<Col id="emp_name">Sophia</Col>
+				<Col id="position">Staff</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Abroad</Col>
+				<Col id="emp_name">Mason</Col>
+				<Col id="position">Manager</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+			<Row>
+				<Col id="company">nexa</Col>
+				<Col id="department">Management</Col>
+				<Col id="emp_name">Lucas</Col>
+				<Col id="position">Staff</Col>
+				<Col id="cellphone">010-0000-1234</Col>
+				<Col id="address">06083, Seoul, Korea</Col>
+			</Row>
+		</Rows>
+	</Dataset>
+</Root>
